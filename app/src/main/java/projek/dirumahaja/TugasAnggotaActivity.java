@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class TugasAnggotaActivity extends AppCompatActivity {
     private AdminTugasAdapter adminTugasAdapter;
     private RecyclerView rvTugas;
     private TugasViewModel tugasViewModel;
+    private TextView tvNamaKelas;
     int i=0;
 
     @Override
@@ -31,6 +33,10 @@ public class TugasAnggotaActivity extends AppCompatActivity {
         final int idKelas = getIntent().getIntExtra("idKelas", 0);
         final String email = getIntent().getStringExtra("email");
         final String pengajar = getIntent().getStringExtra("pengajar");
+        final String namaKelas = getIntent().getStringExtra("namaKelas");
+        tvNamaKelas =(TextView) findViewById(R.id.tv_header);
+        tvNamaKelas.setText(namaKelas);
+
         if(email.equals(pengajar))
             adminTugasAct(email,idKelas);
         else

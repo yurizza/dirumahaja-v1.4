@@ -55,30 +55,15 @@ public class KonfirmasiTugasAdapter extends RecyclerView.Adapter<KonfirmasiTugas
 
     public class  ViewHolder extends RecyclerView.ViewHolder {
         User user = PrefUtil.getUser(context, PrefUtil.USER_SESSION);
-        TextView tvNama,tvDeskripsi,tvTanggal;
+        TextView tvNama,tvDeskripsi,tvTanggal,tvHeader;
 
         LinearLayout layoutItemList;
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
+            tvHeader = itemView.findViewById(R.id.nama_tugas);
             tvNama=itemView.findViewById(R.id.nama_konfirm);
             tvTanggal = itemView.findViewById(R.id.tv_tanggal_konfirm);
             tvDeskripsi = itemView.findViewById(R.id.tv_deskripsi_konfirm);
-
-            layoutItemList= itemView.findViewById(R.id.layout_item_list_konfirm);
-            layoutItemList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent();
-////
-//                    intent = new Intent(context, KerjakanTugasActivity.class);
-////                intent.putExtra("email",user.getData().getEmail());
-////                    Toast.makeText(v.getContext(),user.getData().getEmail(), Toast.LENGTH_SHORT).show();
-//                    intent.putExtra("idTugas",kelasItems.get(getAdapterPosition()).getIdTugas());
-//                    intent.putExtra("namaKelas",kelasItems.get(getAdapterPosition()).getNamaKelas());
-//                    intent.putExtra("subKelas",kelasItems.get(getAdapterPosition()).getSubKelas());
-//                    v.getContext().startActivity(intent);
-                }
-            });
         }
     }
 }

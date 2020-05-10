@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class KonfirmasiTugas extends AppCompatActivity {
     private KonfirmasiTugasAdapter konfirmasiTugasAdapter;
     private RecyclerView rvTugas;
     private KonfirmasiViewModel konfirmasiViewModel;
+    private TextView tvJudulTugas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,9 @@ public class KonfirmasiTugas extends AppCompatActivity {
         final int idKelas = getIntent().getIntExtra("idKelas", 0);
         final String email = getIntent().getStringExtra("email");
         final int idTugas= getIntent().getIntExtra("idTugas", 0);
+        final String judulTugas = getIntent().getStringExtra("judulTugas");
+        tvJudulTugas = findViewById(R.id.nama_tugas);
+        tvJudulTugas.setText(judulTugas);
         tugasAct(email,idKelas,idTugas);
     }
     private void tugasAct(String email,int idKelas,int idTugas) {

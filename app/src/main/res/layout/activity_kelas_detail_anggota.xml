@@ -67,16 +67,33 @@
                             android:id="@+id/tv_kode_kelas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
                             android:gravity="center"
                             android:text="kode"
-                            android:textSize="15sp"></TextView>
+                            android:textSize="17sp"></TextView>
 
-                        <ImageButton
-                            android:id="@+id/ib_share_kode_kelas"
-                            style="@style/buttonstyle3"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_share_black_24dp"></ImageButton>
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/ib_share_kode_kelas"
+                                style="@style/buttonstyle3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_share_black_24dp"></ImageButton>
+
+                            <ImageButton
+                                android:id="@+id/ib_kelas_favorit"
+                                style="@style/buttonstyle3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/star"></ImageButton>
+
+                        </LinearLayout>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -169,7 +186,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:background="@drawable/tombol_menu"
-                    android:elevation="30dp"
                     android:orientation="vertical">
 
                     <ImageView
@@ -179,24 +195,24 @@
                         android:maxHeight="50dp"></ImageView>
 
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_tugas"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Lihat semua tugas >>"
-                    android:textColor="@color/ca"
-                    android:textSize="15sp"
-                    android:textStyle="bold"></TextView>
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/tv_tugas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Lihat semua tugas >>"
+                        android:textColor="#FFF"
+                        android:backgroundTint="@color/ca"
+                        android:textSize="15sp"
+                        android:textStyle="bold"></Button>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

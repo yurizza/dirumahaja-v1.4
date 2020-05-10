@@ -57,7 +57,7 @@ public class AdminTugasAdapter extends RecyclerView.Adapter<AdminTugasAdapter.Vi
 
     public class  ViewHolder extends RecyclerView.ViewHolder {
         User user = PrefUtil.getUser(context, PrefUtil.USER_SESSION);
-        TextView tvJudul,tvDeskripsi,tvTanggal,tvTenggat,tvNamaKelas,tvSubKelas,tvSelesai,tvKerjakan;
+        TextView tvHeader,tvJudul,tvDeskripsi,tvTanggal,tvTenggat,tvNamaKelas,tvSubKelas,tvSelesai,tvKerjakan;
         CardView cvKelas;
         LinearLayout layoutItemList;
         public ViewHolder(@NonNull final View itemView) {
@@ -78,6 +78,7 @@ public class AdminTugasAdapter extends RecyclerView.Adapter<AdminTugasAdapter.Vi
 //                    Toast.makeText(v.getContext(),user.getData().getEmail(), Toast.LENGTH_SHORT).show();
                     intent.putExtra("idTugas",kelasItems.get(getAdapterPosition()).getIdTugas());
                     intent.putExtra("idKelas",kelasItems.get(getAdapterPosition()).getIdKelas());
+                    intent.putExtra("judulTugas",kelasItems.get(getAdapterPosition()).getJudulTugas());
                     v.getContext().startActivity(intent);
                 }
             });

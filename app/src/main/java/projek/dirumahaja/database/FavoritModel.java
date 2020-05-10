@@ -11,6 +11,12 @@ public class FavoritModel {
     @ColumnInfo(name = "id")
     private int id;
 
+    @ColumnInfo(name = "idKelas")
+    private int idKelas;
+
+    @ColumnInfo(name = "email")
+    private String email;
+
     @ColumnInfo(name = "namaKelas")
     private String namaKelas;
 
@@ -29,6 +35,22 @@ public class FavoritModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdKelas() {
+        return idKelas;
+    }
+
+    public void setIdKelas(int idKelas) {
+        this.idKelas = idKelas;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNamaKelas() {

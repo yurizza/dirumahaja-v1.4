@@ -2,9 +2,11 @@ package projek.dirumahaja;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import projek.dirumahaja.database.AppDatabase;
+import projek.dirumahaja.database.FavoritModel;
 import projek.dirumahaja.model.User;
 import projek.dirumahaja.util.PrefUtil;
 
@@ -24,10 +28,15 @@ public class KelasDetailAnggotaActivity extends AppCompatActivity {
     private ImageView ivSend, ivUploadImage, ivUploadFile;
     private ImageButton ibShareKelasKode;
 
+    //roomdb
+    private AppDatabase appDatabase;
+    private ImageButton kelas_favorit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kelas_detail_anggota);
+
+        kelas_favorit = findViewById(R.id.ib_kelas_favorit);
 
         final String strNamaKelas = getIntent().getStringExtra("namaKelas");
         final String strSubKelas = getIntent().getStringExtra("subKelas");
@@ -36,6 +45,7 @@ public class KelasDetailAnggotaActivity extends AppCompatActivity {
         final User user = PrefUtil.getUser(this, PrefUtil.USER_SESSION);
         final int idKelas = getIntent().getIntExtra("idKelas", 0);
 
+        appDatabase = AppDatabase.initDatabase(getApplicationContext());
         tvNamaKelas = (TextView) findViewById(R.id.tv_detail_nama_kelas);
         etJudul = (EditText) findViewById(R.id.et_judul);
         ibShareKelasKode = (ImageButton) findViewById(R.id.ib_share_kode_kelas);
@@ -60,6 +70,8 @@ public class KelasDetailAnggotaActivity extends AppCompatActivity {
                 Intent intent = new Intent(KelasDetailAnggotaActivity.this, TugasAnggotaActivity.class);
                 intent.putExtra("email", user.getData().getEmail());
                 intent.putExtra("idKelas", idKelas);
+                intent.putExtra("pengajar",strPengajar);
+                intent.putExtra("namaKelas",strNamaKelas+" "+strSubKelas);
                 startActivity(intent);
             }
         });
@@ -78,6 +90,32 @@ public class KelasDetailAnggotaActivity extends AppCompatActivity {
                     startActivity(shareIntent);
                 } else {
                     Toast.makeText(KelasDetailAnggotaActivity.this, "Hanya PENGAJAR yang bisa berbagi KODE KELAS!", LENGTH_SHORT).show();
+                }
+            }
+        });
+        kelas_favorit.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onClick(View view) {
+                try {
+
+                    FavoritModel favoritModel = new FavoritModel();
+
+                    favoritModel.setKodeKelas("");
+                    favoritModel.setNamaKelas(strNamaKelas);
+                    favoritModel.setSubKelas(strSubKelas);
+                    favoritModel.setPengajar(strPengajar);
+                    favoritModel.setIdKelas(idKelas);
+                    favoritModel.setEmail(user.getData().getEmail());
+
+                    appDatabase.favoritDAO().insertFavorit(favoritModel);
+
+                    Log.e("KelasDetailAnggotaActivity", "Berhasil");
+                    Toast.makeText(getApplicationContext(), "Disukai", LENGTH_SHORT).show();
+
+                } catch (Exception ex) {
+                    Log.e("KelasDetailAnggotaActivity", "gagal disukai, msg : " + ex.getMessage());
+                    Toast.makeText(getApplicationContext(), "gagal disukai", LENGTH_SHORT).show();
                 }
             }
         });
@@ -100,6 +138,7 @@ public class KelasDetailAnggotaActivity extends AppCompatActivity {
             return;
         }
     }
+
 
 //tutup
 }

@@ -16,6 +16,6 @@ public interface FavoritDAO {
     @Delete
     int hapusFavorit(FavoritModel favoritModel);
 
-    @Query("SELECT *FROM data_favorit")
-    List<FavoritModel> getFavorit();
+    @Query("SELECT *FROM data_favorit WHERE email=:email")
+    List<FavoritModel> getFavorit(String email);
 }

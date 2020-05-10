@@ -1,11 +1,13 @@
 package projek.dirumahaja;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import projek.dirumahaja.database.AppDatabase;
 import projek.dirumahaja.database.FavoritModel;
+import projek.dirumahaja.model.User;
+import projek.dirumahaja.util.PrefUtil;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -81,6 +85,7 @@ public class FavoritAdapter extends RecyclerView.Adapter<FavoritAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         Button btnhapus;
         TextView tvKode, tvNama, tvSub, tvPengajar;
+        LinearLayout layoutItemList;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +95,28 @@ public class FavoritAdapter extends RecyclerView.Adapter<FavoritAdapter.ViewHold
             tvNama = itemView.findViewById(R.id.itemlist_namakelas);
             tvSub = itemView.findViewById(R.id.itemlist_subkelas);
             tvPengajar = itemView.findViewById(R.id.itemlist_pengajar);
+
+            layoutItemList = itemView.findViewById(R.id.layout_item_list_favorit);
+            layoutItemList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    User user = PrefUtil.getUser(v.getContext(),PrefUtil.USER_SESSION);
+                    Intent intent = new Intent();
+                    if (favoritItems.get(getAdapterPosition()).getPengajar().equals(user.getData().getEmail()))
+                        intent = new Intent(context, KelasDetailActivity.class);
+                    else
+                        intent = new Intent(context, KelasDetailAnggotaActivity.class);
+
+                    intent.putExtra("email", user.getData().getEmail());
+//                    Toast.makeText(v.getContext(),user.getData().getEmail(), Toast.LENGTH_SHORT).show();
+                    intent.putExtra("idKelas", favoritItems.get(getAdapterPosition()).getIdKelas());
+                    intent.putExtra("namaKelas", favoritItems.get(getAdapterPosition()).getNamaKelas());
+                    intent.putExtra("subKelas", favoritItems.get(getAdapterPosition()).getSubKelas());
+                    intent.putExtra("kodeKelas", favoritItems.get(getAdapterPosition()).getKodeKelas());
+                    intent.putExtra("pengajar", favoritItems.get(getAdapterPosition()).getPengajar());
+                    v.getContext().startActivity(intent);
+                }
+            });
 
         }
     }

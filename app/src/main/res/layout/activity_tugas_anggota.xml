@@ -14,13 +14,14 @@
         android:background="@color/ca">
 
         <TextView
+            android:id="@+id/tv_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:fontFamily="sans-serif-black"
             android:text="Detail Tugas Kelas"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout

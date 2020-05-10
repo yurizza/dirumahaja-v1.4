@@ -18,7 +18,7 @@ public abstract class AppDatabase extends RoomDatabase {
             appDatabase = Room.databaseBuilder(
                     context,
                     AppDatabase.class,
-                    "favorit"
+                    "disukai"
             ).allowMainThreadQueries().build();
 
         }

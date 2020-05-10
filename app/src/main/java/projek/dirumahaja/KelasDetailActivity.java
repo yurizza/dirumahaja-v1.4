@@ -66,7 +66,7 @@ public class KelasDetailActivity extends AppCompatActivity {
     //roomdb
     private AppDatabase appDatabase;
     private ImageButton kelas_favorit;
-    private Button lihat_favorit;
+//    private Button lihat_favorit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class KelasDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kelas_detail);
 
         kelas_favorit = findViewById(R.id.ib_kelas_favorit);
-        lihat_favorit = findViewById(R.id.btn_lihat_favorit);
+//        lihat_favorit = findViewById(R.id.btn_lihat_favorit);
 
         loadingDialog = new LoadingDialog(KelasDetailActivity.this);
 
@@ -112,6 +112,7 @@ public class KelasDetailActivity extends AppCompatActivity {
                 intent.putExtra("email", user.getData().getEmail());
                 intent.putExtra("idKelas", idKelas);
                 intent.putExtra("pengajar",strPengajar);
+                intent.putExtra("namaKelas",strNamaKelas+" "+strSubKelas);
                 startActivity(intent);
             }
         });
@@ -161,9 +162,11 @@ public class KelasDetailActivity extends AppCompatActivity {
                     FavoritModel favoritModel = new FavoritModel();
 
                     favoritModel.setKodeKelas(tvKodeKelas.getText().toString());
-                    favoritModel.setNamaKelas(tvNamaKelas.getText().toString());
+                    favoritModel.setNamaKelas(strNamaKelas);
                     favoritModel.setSubKelas(strSubKelas);
                     favoritModel.setPengajar(strPengajar);
+                    favoritModel.setIdKelas(idKelas);
+                    favoritModel.setEmail(user.getData().getEmail());
 
                     appDatabase.favoritDAO().insertFavorit(favoritModel);
 
@@ -176,13 +179,13 @@ public class KelasDetailActivity extends AppCompatActivity {
                 }
             }
         });
-        lihat_favorit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), readFavorit.class);
-                startActivity(intent);
-            }
-        });
+//        lihat_favorit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), readFavorit.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
@@ -193,6 +196,10 @@ public class KelasDetailActivity extends AppCompatActivity {
         String strJudulTugas = etJudul.getText().toString();
         if (TextUtils.isEmpty(strDeskripsi)) {
             etTugas.setError("Cannot be empty !");
+            return;
+        }
+        if (TextUtils.isEmpty(strJudulTugas)) {
+            etJudul.setError("Cannot be empty !");
             return;
         }
         if (uri != null) {

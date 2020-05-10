@@ -22,7 +22,6 @@
         <activity android:name=".KonfirmasiTugas" />
         <activity android:name=".BuatKelasActivity" />
         <activity android:name=".KelasDetailActivity" />
-        <activity android:name=".AdminActivity" />
         <activity
             android:name=".Main2Activity"
             android:theme="@style/AppTheme.NoActionBar" />
